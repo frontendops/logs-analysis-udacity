@@ -3,7 +3,10 @@ import psycopg2
 
 dbName = "news"
 # all of the questions for the project
-question1 = "What are the most popular three articles of all time? \n"
+question1 = "create or replace view popular_articles as\
+        select title,count(title) as views from articles,log\
+        where log.path = concat('/article/',articles.slug)\
+        group by title order by views desc \n"
 question2 = "Who are the most popular article authors of all time? \n"
 question3 = "On which days did more than 1 % of requests lead to errors? \n"
 
