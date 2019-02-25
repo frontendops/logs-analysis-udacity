@@ -3,15 +3,12 @@ import psycopg2
 
 dbName = "news"
 # all of the questions for the project
-question1 = "create or replace view popular_articles as\
-        select title,count(title) as views from articles,log\
-        where log.path = concat('/article/',articles.slug)\
-        group by title order by views desc \n"
+question1 = "What are the most popular three articles of all time? \n"
 question2 = "Who are the most popular article authors of all time? \n"
 question3 = "On which days did more than 1 % of requests lead to errors? \n"
 
 # queries that get passed into db function
-query1 = "select title from articles  join authors on articles.author = authors.id"
+query1 = "select title,count(title) as views from articles,log where log.path = concat('/article/',articles.slug) group by title order by views desc limit 3"
 query2 = "select * from authors"
 query3 = "select * from articles"
 
