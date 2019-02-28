@@ -53,9 +53,10 @@ print("\n")
 
 # for now get days where status is 404 not found
 # view for query 3
+# change days to "visits"
 """
 create view dates as
-    select to_char(time, 'DD-MM-YYYY') as day, count(*) as visits
+    select to_char(time, 'DD-MM-YYYY') as day, count(*) as days
     from log
     group by day;
 """
@@ -70,10 +71,11 @@ create view errorDate as
 
 
 # full query 3
+# convert total errors into percent
 """
-select dates.day, totalErrors
+select dates.day, round(100.0*totalErrors/days,2) as percent
     from dates, errorDate
        where dates.day = errorDate.day
-        group by dates.day, totalErrors
-        order by totalErrors desc;
+        group by dates.day, percent
+        order by percent desc;
 """
