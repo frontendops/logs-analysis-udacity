@@ -42,17 +42,17 @@ Project for Udacity Full stack Nanodegree, using python and SQL to retrieve info
 
 ## To get started
 
-    * Download a VM udacity recomends `Udacity vm here`
+1. Download a VM udacity recomends `Udacity vm here`
 
-    * Download the Db here `db here` and drag db into vagrant folder
+2. Download the Db here `db here` and drag db into vagrant folder
 
-    * Use `vagrant up` and `vagrant ssh` 
+3. Use `vagrant up` and `vagrant ssh` 
 
-    * Dowload the [database][https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip] and Copy it in the `vagrant` folder
+4. Dowload the [database][https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip] and Copy it in the `vagrant` folder
 
-    * Load the Data with `psql -d news -f newsdata.sql`
+5. Load the Data with `psql -d news -f newsdata.sql`
 
-    * Conally connect to the db with `psql -d news`
+6. Conally connect to the db with `psql -d news`
 
 Using python with the `psycopg2` module we connect to our SQL database.
 
