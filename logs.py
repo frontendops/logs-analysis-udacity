@@ -12,7 +12,7 @@ query1 = "select title,count(title) as impressions from articles join log on log
 
 query2 = "select name, count(name) as impressions from articles join authors on articles.author = authors.id join log on log.path = concat('/article/',articles.slug) group by authors.name order by impressions desc limit 4;"
 
-query3 = "select * from articles"
+query3 = "select dates.day, round(100.0*totalErrors/days,2) as percent from dates, errorDate where dates.day = errorDate.day group by dates.day, percent order by percent desc limit 1;"
 
 
 # connecting to the db and getting the result of the query passed in
@@ -36,7 +36,9 @@ print(question2)
 print(connectDB(query2))
 print("\n")
 
-# print(question3)
+print(question3)
+print(connectDB(query3))
+print("\n")
 
 # full query 2
 """
@@ -50,9 +52,18 @@ print("\n")
                 order by views desc limit 4;
 """
 
+# full query 3
+# convert total errors into percent
+"""
+select dates.day, round(100.0*totalErrors/days,2) as percent
+    from dates, errorDate
+       where dates.day = errorDate.day
+        group by dates.day, percent
+        order by percent desc limit 1;
+"""
 
-# for now get days where status is 404 not found
-# view for query 3
+# get days where status is 404 not found
+# views for query 3
 # change days to "visits"
 """
 create view dates as
@@ -67,15 +78,4 @@ create view errorDate as
     from log
     where status = '404 NOT FOUND'
     group by day;
-"""
-
-
-# full query 3
-# convert total errors into percent
-"""
-select dates.day, round(100.0*totalErrors/days,2) as percent
-    from dates, errorDate
-       where dates.day = errorDate.day
-        group by dates.day, percent
-        order by percent desc;
 """
