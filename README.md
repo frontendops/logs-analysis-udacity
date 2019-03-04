@@ -54,5 +54,7 @@ Project for Udacity Full stack Nanodegree, using python and SQL to retrieve info
 
 6. Conally connect to the db with `psql -d news`
 
+7. `cd` into the logs-analysis folder and run `python3 logs.py`
+
 Using python with the `psycopg2` module we connect to our SQL database.
 
