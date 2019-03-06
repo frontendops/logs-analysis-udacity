@@ -81,20 +81,3 @@ select dates.day, round(100.0*totalErrors/days,2) as percent
         group by dates.day, percent
         order by percent desc limit 1;
 """
-
-# get days where status is 404 not found
-# views for query 3
-"""
-create view dates as
-    select to_char(time, 'DD-MM-YYYY') as day, count(*) as days
-    from log
-    group by day;
-"""
-
-"""
-create view errorDate as select to_char(time, 'DD-MM-YYYY')
- as day, count(*) as totalErrors
-    from log
-    where status = '404 NOT FOUND'
-    group by day;
-"""
