@@ -20,8 +20,8 @@ query2 = "select name, count(name) as impressions " \
     "group by authors.name order by impressions desc limit 4;"
 
 query3 = "select dates.day, round(100.0*totalErrors/days,2) as percent " \
-    "from dates, errorDate where dates.day = errorDate.day group by dates.day, percent " \
-    "order by percent desc limit 1;"
+    "from dates, errorDate where dates.day = errorDate.day " \
+    "group by dates.day, percent order by percent desc limit 1;"
 
 
 # connecting to the db and getting the result of the query passed in
@@ -35,13 +35,12 @@ def connectDB(query):
             results = cursor.fetchall()
             db.close()
             return results
-        except:
-            print("could not connect to db, please try again")
+        except psycopg2.Error as error:
+            print(error)
 
 
 # this connects to the db and prints the result
-# print(connectDB())
-# formatResponse is a pure function that takes in question and query to display output
+# formatResponse is a pure function that takes args to display output
 # the type argument is for either the word views or a % sign
 
 
@@ -64,8 +63,7 @@ formatResponse(question3, query3, "%")
 # full queries and views for easier viewing
 # full query 2
 """
-    select name, count(name) as views 
-        from articles
+    select name, count(name) as views from articles
             join authors
             on articles.author = authors.id
                 join log
@@ -94,8 +92,8 @@ create view dates as
 """
 
 """
-create view errorDate as 
-    select to_char(time, 'DD-MM-YYYY') as day, count(*) as totalErrors
+create view errorDate as select to_char(time, 'DD-MM-YYYY')
+ as day, count(*) as totalErrors
     from log
     where status = '404 NOT FOUND'
     group by day;
